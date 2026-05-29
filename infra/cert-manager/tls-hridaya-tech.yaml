@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+
+metadata:
+  name: tls-hridaya-tech
+  namespace: traefik
+
+spec:
+  secretName: tls-hridaya-tech
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - "hridaya.tech"
+    - "*.hridaya.tech"

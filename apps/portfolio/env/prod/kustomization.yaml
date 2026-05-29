@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: portfolio-prod
+
+resources:
+  # base configuration
+  - ../../base
+  - httproute.yaml
+
+patches:
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: portfolio-deployment
+  - path: hpa-patch.yaml
+    target:
+      kind: HorizontalPodAutoscaler
+      name: portfolio-hpa
+
+images:
+  - name: ghcr.io/hridaya2004/portfolio
+    newTag: 41ba9513d441

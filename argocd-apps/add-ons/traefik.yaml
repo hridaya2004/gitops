@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: traefik
+  namespace: argocd
+
+spec:
+  project: default
+  sources:
+    - repoURL: https://traefik.github.io/charts
+      chart: traefik
+      targetRevision: v39.0.2
+      helm:
+        skipCrds: true
+        values: |
+          providers:
+            kubernetesGateway:
+              enabled: true
+            kubernetesIngress:
+              enabled: false
+          gateway:
+            enabled: false
+          gatewayClass:
+            enabled: false
+          service:
+            type: LoadBalancer
+    - repoURL: https://github.com/hridaya2004/gitops.git
+      targetRevision: main
+      path: infra/traefik-gateway
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: traefik
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
