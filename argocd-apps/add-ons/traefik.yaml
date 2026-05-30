@@ -12,7 +12,6 @@ spec:
       chart: traefik
       targetRevision: v40.2.0
       helm:
-        skipCrds: true
         values: |
           providers:
             kubernetesGateway:
