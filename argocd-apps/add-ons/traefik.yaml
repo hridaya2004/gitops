@@ -10,7 +10,7 @@ spec:
   sources:
     - repoURL: https://traefik.github.io/charts
       chart: traefik
-      targetRevision: v39.0.2
+      targetRevision: v40.2.0
       helm:
         skipCrds: true
         values: |
