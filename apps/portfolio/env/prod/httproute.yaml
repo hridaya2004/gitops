@@ -11,8 +11,8 @@ spec:
       name: traefik-gateway
       namespace: traefik
   hostnames:
-    - "hridaya.tech"
-    - "www.hridaya.tech"
+    - 'hridaya.tech'
+    - 'www.hridaya.tech'
   rules:
     - matches:
         - path:

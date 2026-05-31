@@ -30,7 +30,7 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - group: ""
+          - group: ''
             kind: Secret
             name: tls-hridaya-tech
             namespace: traefik

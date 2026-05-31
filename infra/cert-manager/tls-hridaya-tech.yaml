@@ -11,5 +11,5 @@ spec:
     name: letsencrypt-prod
     kind: ClusterIssuer
   dnsNames:
-    - "hridaya.tech"
-    - "*.hridaya.tech"
+    - 'hridaya.tech'
+    - '*.hridaya.tech'
