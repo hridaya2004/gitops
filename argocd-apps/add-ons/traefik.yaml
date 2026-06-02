@@ -22,6 +22,8 @@ spec:
             enabled: false
           gatewayClass:
             enabled: false
+          ingressClass:
+            enabled: false
           service:
             type: LoadBalancer
     - repoURL: https://github.com/hridaya2004/gitops.git
