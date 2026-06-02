@@ -5,6 +5,7 @@ resources:
   # addons
   - add-ons/cert-manager.yaml
   - add-ons/sealed-secrets.yaml
+  - add-ons/headlamp.yaml
   - add-ons/traefik.yaml
 
   # services

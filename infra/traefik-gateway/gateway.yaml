@@ -15,8 +15,11 @@ spec:
         namespaces:
           from: Selector
           selector:
-            matchLabels:
-              kubernetes.io/metadata.name: portfolio-prod
+            matchExpressions:
+              - key: kubernetes.io/metadata.name
+                operator: In
+                values:
+                  - portfolio-prod
 
     - name: websecure
       port: 8443
@@ -25,8 +28,11 @@ spec:
         namespaces:
           from: Selector
           selector:
-            matchLabels:
-              kubernetes.io/metadata.name: portfolio-prod
+            matchExpressions:
+              - key: kubernetes.io/metadata.name
+                operator: In
+                values:
+                  - portfolio-prod
       tls:
         mode: Terminate
         certificateRefs:
