@@ -9,4 +9,6 @@ resources:
   - add-ons/traefik.yaml
 
   # services
-  - services/portfolio-prod.yaml
+  ## since only env/prod is used for now.
+  - services/app-portfolio.yaml
+  - services/app-monitoring.yaml

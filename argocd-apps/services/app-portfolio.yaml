@@ -10,10 +10,11 @@ spec:
   source:
     repoURL: https://github.com/hridaya2004/gitops.git
     targetRevision: main
-    path: apps/portfolio/env/prod
+    path: apps/portfolio
+
   destination:
     server: https://kubernetes.default.svc
-    namespace: portfolio-prod
+    namespace: portfolio
   syncPolicy:
     automated:
       prune: true
