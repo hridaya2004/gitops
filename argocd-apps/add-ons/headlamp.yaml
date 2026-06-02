@@ -15,9 +15,11 @@ spec:
 
     helm:
       values: |
+        nodeSelector:
+          node-role.kubernetes.io/control-plane: "true"
+
         service:
           type: ClusterIP
-
         ingress:
           enabled: false
 
