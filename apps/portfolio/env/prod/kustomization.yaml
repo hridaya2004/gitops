@@ -20,4 +20,4 @@ patches:
 
 images:
   - name: ghcr.io/hridaya2004/portfolio
-    newTag: 41ba9513d441
+    newTag: ff851877e82f
