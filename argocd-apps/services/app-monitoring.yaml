@@ -14,6 +14,12 @@ spec:
     - repoURL: https://github.com/hridaya2004/gitops.git
       targetRevision: main
       path: apps/prometheus/
+    - repoURL: https://github.com/hridaya2004/gitops.git
+      targetRevision: main
+      path: apps/loki/
+    - repoURL: https://github.com/hridaya2004/gitops.git
+      targetRevision: main
+      path: apps/tempo/
     - repoURL: https://github.com/kubernetes/kube-state-metrics.git
       targetRevision: release-2.19
       path: examples/standard

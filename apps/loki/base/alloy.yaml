@@ -1,0 +1,93 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+
+metadata:
+  name: alloy
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+
+metadata:
+  name: alloy
+
+rules:
+  - apiGroups: ['']
+    resources: ['pods', 'pods/log', 'namespaces']
+    verbs: ['get', 'list', 'watch']
+  - apiGroups: ['']
+    resources: ['nodes', 'nodes/proxy']
+    verbs: ['get', 'list', 'watch']
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+
+metadata:
+  name: alloy
+
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: alloy
+
+subjects:
+  - kind: ServiceAccount
+    name: alloy
+    namespace: monitoring
+
+---
+apiVersion: apps/v1
+kind: DaemonSet
+
+metadata:
+  name: alloy
+  labels:
+    app: alloy
+
+spec:
+  selector:
+    matchLabels:
+      app: alloy
+  template:
+    metadata:
+      labels:
+        app: alloy
+    spec:
+      serviceAccountName: alloy
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+      containers:
+        - name: alloy
+          image: grafana/alloy:v1.16.1
+          args:
+            - run
+            - /etc/alloy/config.alloy
+          ports:
+            - containerPort: 12345
+              name: http
+          volumeMounts:
+            - name: config
+              mountPath: /etc/alloy
+              readOnly: true
+            - name: varlog
+              mountPath: /var/log
+              readOnly: true
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 512Mi
+      volumes:
+        - name: config
+          configMap:
+            name: alloy-config
+        - name: varlog
+          hostPath:
+            path: /var/log
+      terminationGracePeriodSeconds: 30

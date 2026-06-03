@@ -3,12 +3,12 @@ kind: PersistentVolumeClaim
 
 metadata:
   name: prometheus-pvc
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
 
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
-    limits:
       storage: 1Gi
