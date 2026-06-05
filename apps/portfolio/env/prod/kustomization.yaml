@@ -13,11 +13,7 @@ patches:
     target:
       kind: Deployment
       name: portfolio-deployment
-  - path: hpa-patch.yaml
-    target:
-      kind: HorizontalPodAutoscaler
-      name: portfolio-hpa
 
 images:
   - name: ghcr.io/hridaya2004/portfolio
-    newTag: ff851877e82f
+    newTag: 3f0c33fc977f

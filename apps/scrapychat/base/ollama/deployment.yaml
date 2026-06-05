@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: ollama
+
+spec:
+  selector:
+    matchLabels:
+      app: ollama
+  template:
+    metadata:
+      labels:
+        app: ollama
+    spec:
+      initContainers:
+        - name: ollama-pull
+          image: ollama/ollama:0.24.0
+          command:
+            - sh
+            - -c
+            - ollama serve & sleep 2 && ollama pull embeddinggemma:300m
+          volumeMounts:
+            - mountPath: /root/.ollama
+              name: ollama-volume
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+      containers:
+        - name: ollama
+          image: ollama/ollama:0.24.0
+          ports:
+            - containerPort: 11434
+          volumeMounts:
+            - mountPath: /root/.ollama
+              name: ollama-volume
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+            limits:
+              cpu: 3000m
+              memory: 2048Mi
+      volumes:
+        - name: ollama-volume
+          persistentVolumeClaim:
+            claimName: ollama-pvc

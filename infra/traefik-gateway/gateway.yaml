@@ -20,6 +20,7 @@ spec:
                 operator: In
                 values:
                   - portfolio-prod
+                  - scrapychat-prod
 
     - name: websecure
       port: 8443
@@ -33,6 +34,7 @@ spec:
                 operator: In
                 values:
                   - portfolio-prod
+                  - scrapychat-prod
       tls:
         mode: Terminate
         certificateRefs:

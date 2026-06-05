@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: scrapychat-backend
+  labels:
+    app: scrapychat-backend
+
+spec:
+  selector:
+    matchLabels:
+      app: scrapychat-backend
+  template:
+    metadata:
+      labels:
+        app: scrapychat-backend
+    spec:
+      containers:
+        - name: scrapychat-backend
+          image: ghcr.io/hridaya2004/scrapychat/scrapychat-backend:1.9
+          ports:
+            - containerPort: 8080
+          env:
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: http://tempo-service.monitoring.svc.cluster.local:4318
+            - name: OTEL_SERVICE_NAME
+              value: scrapychat-backend-service
+          envFrom:
+            - configMapRef:
+                name: scrapychat-backend-configmap
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: scrapychat-qdrant-service
+
+spec:
+  selector:
+    app: scrapychat-qdrant
+  ports:
+    - name: qdrant-grpc
+      protocol: TCP
+      port: 80
+      targetPort: 6333
+    - name: qdrant-http
+      protocol: TCP
+      port: 6334
+      targetPort: 6334

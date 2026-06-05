@@ -19,6 +19,7 @@ data:
 
     loki.process "add_k8s_labels" {
         stage.regex {
+            source     = "__path__"
             expression = "/var/log/pods/(?P<namespace>[^_]+)_(?P<pod_name>[^_]+)_(?P<uid>[^/]+)/(?P<container_name>[^_]+)/(?P<restart_count>[^.]*)\\.log"
         }
 

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: scrapychat-qdrant-configmap
+
+data:
+  production.yaml: |
+    log_level: INFO

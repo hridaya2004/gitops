@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: scrapychat-qdrant
+  labels:
+    app: scrapychat-qdrant
+
+spec:
+  selector:
+    matchLabels:
+      app: scrapychat-qdrant
+  template:
+    metadata:
+      labels:
+        app: scrapychat-qdrant
+    spec:
+      containers:
+        - name: qdrant
+          image: qdrant/qdrant:latest
+          ports:
+            - containerPort: 6333
+            - containerPort: 6334
+            - containerPort: 6335
+          volumeMounts:
+            - mountPath: /qdrant/storage
+              name: scrapychat-qdrant-pv
+            - mountPath: /qdrant/config
+              name: scrapychat-qdrant-configmap
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+      volumes:
+        - name: scrapychat-qdrant-pv
+          persistentVolumeClaim:
+            claimName: scrapychat-qdrant-pvc
+        - name: scrapychat-qdrant-configmap
+          configMap:
+            name: scrapychat-qdrant-configmap
