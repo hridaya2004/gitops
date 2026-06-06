@@ -10,6 +10,8 @@ spec:
   selector:
     matchLabels:
       app: scrapychat-auth
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
