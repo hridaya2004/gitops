@@ -25,9 +25,10 @@ data:
 
         stage.labels {
             values = {
-                namespace     = "namespace",
-                pod_name      = "pod_name",
+                namespace      = "namespace",
+                pod_name       = "pod_name",
                 container_name = "container_name",
+                service_name   = "container_name",
             }
         }
 
