@@ -23,8 +23,6 @@ spec:
           ports:
             - containerPort: 3001
           env:
-            - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: http://tempo-service.monitoring.svc.cluster.local:4318
             - name: OTEL_SERVICE_NAME
               value: scrapychat-auth-service
           envFrom:
