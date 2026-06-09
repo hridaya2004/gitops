@@ -12,26 +12,40 @@ data:
         path_targets = [{__path__ = "/var/log/pods/*/*/*.log"}]
     }
 
-    loki.source.file "kubernetes" {
-        targets    = local.file_match.pods.targets
-        forward_to = [loki.process.add_k8s_labels.receiver]
+    discovery.relabel "pods" {
+        targets = local.file_match.pods.targets
+
+        rule {
+            source_labels = ["__path__"]
+            regex         = "/var/log/pods/([^_]+)_([^_]+)_([^/]+)/([^_]+)/[^.]+\\.log"
+            replacement   = "${1}"
+            target_label  = "namespace"
+        }
+
+        rule {
+            source_labels = ["__path__"]
+            regex         = "/var/log/pods/([^_]+)_([^_]+)_([^/]+)/([^_]+)/[^.]+\\.log"
+            replacement   = "${2}"
+            target_label  = "pod_name"
+        }
+
+        rule {
+            source_labels = ["__path__"]
+            regex         = "/var/log/pods/([^_]+)_([^_]+)_([^/]+)/([^_]+)/[^.]+\\.log"
+            replacement   = "${4}"
+            target_label  = "container_name"
+        }
+
+        rule {
+            source_labels = ["__path__"]
+            regex         = "/var/log/pods/([^_]+)_([^_]+)_([^/]+)/([^_]+)/[^.]+\\.log"
+            replacement   = "${4}"
+            target_label  = "service_name"
+        }
     }
 
-    loki.process "add_k8s_labels" {
-        stage.regex {
-            source     = "__path__"
-            expression = "/var/log/pods/(?P<namespace>[^_]+)_(?P<pod_name>[^_]+)_(?P<uid>[^/]+)/(?P<container_name>[^_]+)/(?P<restart_count>[^.]*)\\.log"
-        }
-
-        stage.labels {
-            values = {
-                namespace      = "namespace",
-                pod_name       = "pod_name",
-                container_name = "container_name",
-                service_name   = "container_name",
-            }
-        }
-
+    loki.source.file "kubernetes" {
+        targets    = discovery.relabel.pods.output
         forward_to = [loki.write.loki.receiver]
     }
 

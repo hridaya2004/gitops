@@ -34,6 +34,8 @@ data:
         external_labels:
           source: tempo
           cluster: home
+      traces_storage:
+        path: /tmp/tempo/generator/traces
       storage:
         path: /tmp/tempo/generator
         remote_write:
@@ -47,7 +49,7 @@ data:
     overrides:
       defaults:
         metrics_generator:
-          processors: [service-graphs, span-metrics]
+          processors: [service-graphs, span-metrics, local-blocks]
 
     storage:
       trace:
