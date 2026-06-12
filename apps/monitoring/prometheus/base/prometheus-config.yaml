@@ -8,9 +8,6 @@ data:
       scrape_interval: 15s
       evaluation_interval: 15s
 
-    rule_files:
-      - /etc/prometheus/alerts.yml
-
     scrape_configs:
       - job_name: prometheus
         static_configs:
@@ -31,47 +28,3 @@ data:
             type: A
             port: 8080
 
-  alerts.yml: |
-    groups:
-      - name: monitoring
-        interval: 30s
-        rules:
-          - alert: PodCrashLooping
-            expr: rate(kube_pod_container_status_restarts_total[15m]) > 0
-            for: 5m
-            labels:
-              severity: warning
-            annotations:
-              summary: "Pod {{ $labels.pod }} is crash looping"
-
-          - alert: PodOOMKilled
-            expr: increase(container_oom_events_total[5m]) > 0
-            for: 1m
-            labels:
-              severity: critical
-            annotations:
-              summary: "Pod {{ $labels.pod }} in {{ $labels.namespace }} was OOMKilled"
-
-          - alert: PodPending
-            expr: kube_pod_status_phase{phase="Pending"} > 0
-            for: 5m
-            labels:
-              severity: warning
-            annotations:
-              summary: "Pod {{ $labels.pod }} is pending for 5m"
-
-          - alert: ContainerRestartHigh
-            expr: increase(kube_pod_container_status_restarts_total{namespace="monitoring"}[1h]) > 2
-            for: 2m
-            labels:
-              severity: critical
-            annotations:
-              summary: "Monitoring container {{ $labels.container }} restarted {{ $value }} times"
-
-          - alert: NodeDiskPressure
-            expr: node_filesystem_avail_bytes{mountpoint="/",fstype!=""} / node_filesystem_size_bytes{mountpoint="/",fstype!=""} < 0.1
-            for: 5m
-            labels:
-              severity: critical
-            annotations:
-              summary: "Node {{ $labels.node }} disk is >90% full"
