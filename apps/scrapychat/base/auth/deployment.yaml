@@ -25,9 +25,16 @@ spec:
           env:
             - name: OTEL_SERVICE_NAME
               value: scrapychat-auth-service
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: scrapychat-otel-configmap
+                  key: OTEL_EXPORTER_OTLP_ENDPOINT
           envFrom:
             - secretRef:
                 name: scrapychat-auth-secrets
+            - configMapRef:
+                name: scrapychat-otel-configmap
           volumeMounts:
             - mountPath: /data
               name: scrapychat-auth-pv

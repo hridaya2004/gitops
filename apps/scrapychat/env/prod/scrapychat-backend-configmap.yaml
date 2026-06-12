@@ -14,4 +14,3 @@ data:
   QDRANT_ENDPOINT: http://scrapychat-qdrant-service.scrapychat-prod.svc.cluster.local
   REDIS_HOST: scrapychat-redis-service.scrapychat-prod.svc.cluster.local
   REDIS_PORT: '6379'
-  OTEL_EXPORTER_OTLP_ENDPOINT: http://tempo-service.monitoring.svc.cluster.local:4318

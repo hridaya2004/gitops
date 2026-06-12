@@ -8,3 +8,4 @@ resources:
   - httproute.yaml
   - scrapychat-auth-secrets.yaml
   - scrapychat-backend-configmap.yaml
+  - scrapychat-otel-configmap.yaml

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: scrapychat-otel-configmap
+
+data:
+  OTEL_EXPORTER_OTLP_ENDPOINT: http://tempo-service.monitoring.svc.cluster.local:4318
