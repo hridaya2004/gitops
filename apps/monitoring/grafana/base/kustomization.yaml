@@ -5,4 +5,5 @@ resources:
   - deployment.yaml
   - service.yaml
   - pvc.yaml
+  - grafana-datasources.yaml
   - grafana-alerting.yaml
