@@ -12,6 +12,7 @@ data:
         folder: kubernetes
         interval: 30s
         rules:
+
           - uid: pod_crash_looping
             title: PodCrashLooping
             condition: A
@@ -22,14 +23,15 @@ data:
                   to: 0
                 datasourceUid: prometheus
                 model:
-                  expr: rate(kube_pod_container_status_restarts_total[15m]) > 0
+                  instant: true
+                  expr: sum by (pod, namespace, container) (increase(kube_pod_container_status_restarts_total[15m])) > 3
             noDataState: NoData
             execErrState: Error
             for: 5m
             labels:
               severity: warning
             annotations:
-              summary: "Pod {{ $labels.pod }} is crash looping"
+              summary: "Pod {{ $labels.pod }} in {{ $labels.namespace }} is crash looping"
 
           - uid: pod_oom_killed
             title: PodOOMKilled
@@ -41,6 +43,7 @@ data:
                   to: 0
                 datasourceUid: prometheus
                 model:
+                  instant: true
                   expr: increase(container_oom_events_total[5m]) > 0
             noDataState: NoData
             execErrState: Error
@@ -60,14 +63,15 @@ data:
                   to: 0
                 datasourceUid: prometheus
                 model:
-                  expr: kube_pod_status_phase{phase="Pending"} > 0
+                  instant: true
+                  expr: kube_pod_status_phase{phase="Pending", namespace!~"kube-system"} > 0
             noDataState: NoData
             execErrState: Error
             for: 5m
             labels:
               severity: warning
             annotations:
-              summary: "Pod {{ $labels.pod }} is pending for 5m"
+              summary: "Pod {{ $labels.pod }} in {{ $labels.namespace }} has been pending for 5m"
 
           - uid: container_restart_high
             title: ContainerRestartHigh
@@ -79,14 +83,16 @@ data:
                   to: 0
                 datasourceUid: prometheus
                 model:
-                  expr: increase(kube_pod_container_status_restarts_total{namespace="monitoring"}[1h]) > 2
+                  # Scoped to monitoring namespace only — intentional
+                  instant: true
+                  expr: sum by (pod, namespace, container) (increase(kube_pod_container_status_restarts_total{namespace="monitoring"}[1h])) > 2
             noDataState: NoData
             execErrState: Error
             for: 2m
             labels:
               severity: critical
             annotations:
-              summary: "Monitoring container {{ $labels.container }} restarted {{ $value }} times"
+              summary: "Monitoring container {{ $labels.container }} restarted {{ $value }} times in 1h"
 
           - uid: node_disk_pressure
             title: NodeDiskPressure
@@ -98,11 +104,59 @@ data:
                   to: 0
                 datasourceUid: prometheus
                 model:
-                  expr: node_filesystem_avail_bytes{mountpoint="/",fstype!=""} / node_filesystem_size_bytes{mountpoint="/",fstype!=""} < 0.1
+                  instant: true
+                  expr: >-
+                    node_filesystem_avail_bytes{mountpoint="/", fstype!=""}
+                    / node_filesystem_size_bytes{mountpoint="/", fstype!=""}
+                    < 0.1
             noDataState: NoData
             execErrState: Error
             for: 5m
             labels:
               severity: critical
             annotations:
-              summary: "Node {{ $labels.node }} disk is >90% full"
+              # Fixed: node_filesystem_* carries "instance" label, not "node"
+              summary: "Node {{ $labels.instance }} disk is >90% full"
+
+          - uid: node_not_ready
+            title: NodeNotReady
+            condition: A
+            data:
+              - refId: A
+                relativeTimeRange:
+                  from: 300
+                  to: 0
+                datasourceUid: prometheus
+                model:
+                  instant: true
+                  expr: min by (node) (kube_node_status_condition{condition="Ready", status="true"}) < 1
+            noDataState: NoData
+            execErrState: Error
+            for: 2m
+            labels:
+              severity: critical
+            annotations:
+              summary: "Node {{ $labels.node }} has been NotReady for 2m"
+
+          - uid: node_memory_pressure
+            title: NodeMemoryPressure
+            condition: A
+            data:
+              - refId: A
+                relativeTimeRange:
+                  from: 900
+                  to: 0
+                datasourceUid: prometheus
+                model:
+                  instant: true
+                  expr: >-
+                    node_memory_MemAvailable_bytes
+                    / node_memory_MemTotal_bytes
+                    < 0.1
+            noDataState: NoData
+            execErrState: Error
+            for: 5m
+            labels:
+              severity: critical
+            annotations:
+              summary: "Node {{ $labels.instance }} memory is >90% used"
