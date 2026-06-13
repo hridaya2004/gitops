@@ -11,4 +11,4 @@ resources:
   - redis
   - web
   - httproute.yaml
-  - scrapychat-otel-configmap.yaml
+  - otel-configmap.yaml
