@@ -10,4 +10,4 @@ resources:
 
 images:
   - name: ghcr.io/hridaya2004/portfolio
-    newTag: 3f0c33fc977f
+    newTag: 0e9563148a2f
