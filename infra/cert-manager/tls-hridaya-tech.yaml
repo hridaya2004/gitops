@@ -8,7 +8,7 @@ metadata:
 spec:
   secretName: tls-hridaya-tech
   issuerRef:
-    name: letsencrypt-prod
+    name: letsencrypt
     kind: ClusterIssuer
   dnsNames:
     - 'hridaya.tech'

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: scrapychat-backend-configmap
+
+data:
+  ALLOWED_ORIGINS: https://scrapychat.hridaya.tech
+  AUTH_URL: http://scrapychat-auth-service.scrapychat.svc.cluster.local:3001
+  FRONTEND_URL: https://scrapychat.hridaya.tech
+  OLLAMA_EMBEDDING_MODEL: embeddinggemma:300m
+  OLLAMA_ENDPOINT: http://ollama-service.scrapychat.svc.cluster.local
+  QDRANT_COLLECTION: scrapychat
+  QDRANT_ENDPOINT: http://scrapychat-qdrant-service.scrapychat.svc.cluster.local
+  REDIS_HOST: scrapychat-redis-service.scrapychat.svc.cluster.local
+  REDIS_PORT: '6379'

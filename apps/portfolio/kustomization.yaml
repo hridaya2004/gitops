@@ -2,5 +2,12 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  # let's just have prod for now
-  - env/prod
+  - deployment.yaml
+  - ghcr-secret.yaml
+  - httproute.yaml
+  - hpa.yaml
+  - service.yaml
+
+images:
+  - name: ghcr.io/hridaya2004/portfolio
+    newTag: 3f0c33fc977f

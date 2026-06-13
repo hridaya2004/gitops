@@ -19,8 +19,8 @@ spec:
               - key: kubernetes.io/metadata.name
                 operator: In
                 values:
-                  - portfolio-prod
-                  - scrapychat-prod
+                  - portfolio
+                  - scrapychat
 
     - name: websecure
       port: 8443
@@ -33,8 +33,8 @@ spec:
               - key: kubernetes.io/metadata.name
                 operator: In
                 values:
-                  - portfolio-prod
-                  - scrapychat-prod
+                  - portfolio
+                  - scrapychat
       tls:
         mode: Terminate
         certificateRefs:

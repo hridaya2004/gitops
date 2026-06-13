@@ -9,7 +9,6 @@ resources:
   - add-ons/traefik.yaml
 
   # services
-  ## since only env/prod is used for now.
   - services/app-portfolio.yaml
   - services/app-monitoring.yaml
   - services/app-scrapychat.yaml
