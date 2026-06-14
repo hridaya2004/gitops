@@ -25,7 +25,7 @@ spec:
               app: portfolio
       containers:
         - name: web
-          image: ghcr.io/hridaya2004/portfolio:latest
+          image: ghcr.io/hridaya2004/portfolio:31a88fab957ee5fb9eaddfbad0a1710817827dee
           ports:
             - containerPort: 8080
           resources:
