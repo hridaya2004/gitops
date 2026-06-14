@@ -26,8 +26,6 @@ spec:
             enabled: false
           ingressClass:
             enabled: false
-          service:
-            type: LoadBalancer
     - repoURL: https://github.com/hridaya2004/gitops.git
       targetRevision: main
       path: infra/traefik-gateway
