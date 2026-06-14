@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/hridaya2004/gitops.git
+    repoURL: https://github.com/hridaya2004/scrapychat.git
     targetRevision: main
-    path: apps/scrapychat
+    path: k8s/
 
   destination:
     server: https://kubernetes.default.svc
