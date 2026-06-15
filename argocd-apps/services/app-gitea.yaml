@@ -39,6 +39,7 @@ spec:
               server:
                 DOMAIN: gitea.hridaya.tech
                 ROOT_URL: https://gitea.hridaya.tech/
+                DISABLE_SSH: true
               service:
                 DISABLE_REGISTRATION: true
             admin:
