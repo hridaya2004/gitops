@@ -21,6 +21,7 @@ spec:
                 values:
                   - portfolio
                   - scrapychat
+                  - gitea
       tls:
         mode: Terminate
         certificateRefs:
