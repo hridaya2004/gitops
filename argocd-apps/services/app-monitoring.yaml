@@ -14,8 +14,6 @@ spec:
     - repoURL: https://github.com/kubernetes/kube-state-metrics.git
       targetRevision: release-2.19
       path: examples/standard
-      kustomize:
-        namespace: monitoring
 
   destination:
     server: https://kubernetes.default.svc

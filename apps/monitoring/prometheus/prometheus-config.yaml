@@ -24,7 +24,7 @@ data:
       - job_name: kube-state-metrics
         dns_sd_configs:
           - names:
-              - kube-state-metrics.monitoring.svc.cluster.local
+              - kube-state-metrics.kube-system.svc.cluster.local
             type: A
             port: 8080
 
