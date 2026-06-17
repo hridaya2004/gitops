@@ -9,3 +9,4 @@ metadata:
 
 data:
   accounts.hridaya: apiKey, login
+  admin.enabled: 'false'
