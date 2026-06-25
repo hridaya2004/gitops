@@ -12,9 +12,6 @@ spec:
       labels:
         app: change-detection
     spec:
-      securityContext:
-        runAsUser: 1000
-        runAsNonRoot: true
       containers:
         - name: change-detection
           image: lscr.io/linuxserver/changedetection.io:0.55.7
@@ -28,7 +25,6 @@ spec:
               name: change-detection-pv
           securityContext:
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
       volumes:
         - name: change-detection-pv
           persistentVolumeClaim:
