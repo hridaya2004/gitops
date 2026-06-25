@@ -6,6 +6,7 @@ namespace: argocd
 resources:
   - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
   - argocd-root-app
+  - argocd-notifications-secret.yaml
 
 patches:
   - target:
@@ -20,3 +21,7 @@ patches:
       kind: ConfigMap
       name: argocd-rbac-cm
     path: argocd-rbac-cm-patch.yaml
+  - target:
+      kind: ConfigMap
+      name: argocd-notifications-cm
+    path: argocd-notifications-cm-patch.yaml

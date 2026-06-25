@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: argocd-notifications-cm
+  namespace: argocd
+
+data:
+  subscriptions: |
+    - recipients:
+      - telegram:-4659040035
+      triggers:
+      - on-sync-succeeded
+      - on-sync-failed
+  service.telegram: |
+    token: $telegram-token
