@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: change-detection
+  namespace: argocd
+
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/hridaya2004/gitops.git
+      targetRevision: main
+      path: apps/change-detection
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: change-detection
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

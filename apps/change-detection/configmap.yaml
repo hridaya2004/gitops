@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: change-detection-cm
+
+data:
+  PUID: '1000'
+  PGID: '1000'
+  TZ: 'Asia/Kathmandu'
+  BASE_URL: 'https://changedetection.hridaya.tech'
