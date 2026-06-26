@@ -25,6 +25,13 @@ spec:
               name: change-detection-pv
           securityContext:
             allowPrivilegeEscalation: false
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
       volumes:
         - name: change-detection-pv
           persistentVolumeClaim:
