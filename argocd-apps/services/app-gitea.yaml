@@ -29,6 +29,11 @@ spec:
             enabled: true
             size: 10Gi
 
+          service:
+            ssh:
+              type: LoadBalancer
+              port: 2222
+
           gitea:
             config:
               database:
@@ -39,7 +44,10 @@ spec:
               server:
                 DOMAIN: gitea.hridaya.tech
                 ROOT_URL: https://gitea.hridaya.tech/
-                DISABLE_SSH: true
+                # SSH_LISTEN_PORT: 2222 rootless default
+                SSH_PORT: 2222
+                DISABLE_SSH: false
+                START_SSH_SERVER: true
               service:
                 DISABLE_REGISTRATION: true
             admin:
