@@ -16,6 +16,26 @@ spec:
     - matches:
         - path:
             type: PathPrefix
+            value: /socket.io/
+      filters:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            remove:
+              - Origin
+        - type: ExtensionRef
+          extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: change-detection-auth
+      backendRefs:
+        - group: ''
+          kind: Service
+          name: change-detection
+          port: 80
+          weight: 1
+    - matches:
+        - path:
+            type: PathPrefix
             value: /
       filters:
         - type: ExtensionRef
