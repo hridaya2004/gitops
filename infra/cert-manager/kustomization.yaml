@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - cloudflare-api-token.yaml
   - cert-issuer.yaml
-  - tls-hridaya-tech.yaml
+  - tls-hridaya-dev.yaml

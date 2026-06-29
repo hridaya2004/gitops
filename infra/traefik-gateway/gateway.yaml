@@ -20,5 +20,5 @@ spec:
         certificateRefs:
           - group: ''
             kind: Secret
-            name: tls-hridaya-tech
+            name: tls-hridaya-dev
             namespace: traefik

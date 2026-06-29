@@ -42,8 +42,8 @@ spec:
                 ISSUE_INDEXER_TYPE: bleve
                 REPO_INDEXER_ENABLED: true
               server:
-                DOMAIN: gitea.hridaya.tech
-                ROOT_URL: https://gitea.hridaya.tech/
+                DOMAIN: gitea.hridaya.dev
+                ROOT_URL: https://gitea.hridaya.dev/
                 # SSH_LISTEN_PORT: 2222 rootless default
                 SSH_PORT: 2222
                 DISABLE_SSH: false
