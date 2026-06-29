@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   # addons
   - add-ons/cert-manager.yaml
+  - add-ons/kyverno.yaml
   - add-ons/sealed-secrets.yaml
   - add-ons/traefik.yaml
 
