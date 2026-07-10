@@ -1,24 +1,21 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
-
 metadata:
   name: traefik-gateway
   namespace: traefik
-
 spec:
   gatewayClassName: traefik
   listeners:
-    - name: websecure
-      port: 8443
-      protocol: HTTPS
-      allowedRoutes:
+    - allowedRoutes:
         namespaces:
           from: All
-
+      name: websecure
+      port: 8443
+      protocol: HTTPS
       tls:
-        mode: Terminate
         certificateRefs:
-          - group: ''
+          - group: ""
             kind: Secret
             name: tls-hridaya-dev
             namespace: traefik
+        mode: Terminate

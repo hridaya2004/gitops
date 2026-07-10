@@ -1,20 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
-
 metadata:
   name: scrapychat
   namespace: argocd
-
 spec:
+  destination:
+    namespace: scrapychat
+    server: https://kubernetes.default.svc
   project: default
   source:
+    path: k8s/
     repoURL: https://github.com/hridaya2004/scrapychat.git
     targetRevision: main
-    path: k8s/
-
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: scrapychat
   syncPolicy:
     automated:
       prune: true

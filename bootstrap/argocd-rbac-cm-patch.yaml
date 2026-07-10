@@ -1,10 +1,8 @@
 apiVersion: v1
-kind: ConfigMap
-
-metadata:
-  name: argocd-rbac-cm
-  namespace: argocd
-
 data:
   policy.csv: |
     g, hridaya, role:admin
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+  namespace: argocd

@@ -1,16 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
-
 metadata:
   name: gitea
   namespace: argocd
-
 spec:
+  destination:
+    namespace: gitea
+    server: https://kubernetes.default.svc
   project: default
   sources:
-    - repoURL: https://dl.gitea.com/charts
-      chart: gitea
-      targetRevision: 12.6.0
+    - chart: gitea
       helm:
         values: |
           ingress:
@@ -52,12 +51,11 @@ spec:
                 DISABLE_REGISTRATION: true
             admin:
               existingSecret: gitea-admin-secret
-    - repoURL: https://github.com/hridaya2004/gitops.git
+      repoURL: https://dl.gitea.com/charts
+      targetRevision: 12.6.0
+    - path: apps/gitea
+      repoURL: https://github.com/hridaya2004/gitops.git
       targetRevision: main
-      path: apps/gitea
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: gitea
   syncPolicy:
     automated:
       prune: true

@@ -13,25 +13,25 @@ spec:
         app: change-detection
     spec:
       containers:
-        - name: change-detection
-          image: lscr.io/linuxserver/changedetection.io:0.55.7
-          ports:
-            - containerPort: 5000
-          envFrom:
+        - envFrom:
             - configMapRef:
                 name: change-detection-cm
-          volumeMounts:
-            - mountPath: /config
-              name: change-detection-pv
-          securityContext:
-            allowPrivilegeEscalation: false
+          image: lscr.io/linuxserver/changedetection.io:0.55.7
+          name: change-detection
+          ports:
+            - containerPort: 5000
           resources:
-            requests:
-              cpu: 100m
-              memory: 256Mi
             limits:
               cpu: 500m
               memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+          volumeMounts:
+            - mountPath: /config
+              name: change-detection-pv
       volumes:
         - name: change-detection-pv
           persistentVolumeClaim:

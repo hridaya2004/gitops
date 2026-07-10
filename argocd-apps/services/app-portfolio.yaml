@@ -1,20 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
-
 metadata:
   name: portfolio
   namespace: argocd
-
 spec:
+  destination:
+    namespace: portfolio
+    server: https://kubernetes.default.svc
   project: default
   source:
+    path: k8s/
     repoURL: https://github.com/hridaya2004/portfolio.git
     targetRevision: main
-    path: k8s/
-
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: portfolio
   syncPolicy:
     automated:
       prune: true

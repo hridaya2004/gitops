@@ -3,19 +3,19 @@ kind: ClusterPolicy
 metadata:
   name: require-resource-limits
 spec:
-  validationFailureAction: Audit
   rules:
-    - name: check-resources
-      match:
+    - match:
         any:
           - resources:
               kinds:
                 - Pod
+      name: check-resources
       validate:
-        message: "CPU and memory resource limits are required"
+        message: CPU and memory resource limits are required
         pattern:
           spec:
             containers:
               - resources:
                   limits:
-                    memory: "?*"
+                    memory: ?*
+  validationFailureAction: Audit

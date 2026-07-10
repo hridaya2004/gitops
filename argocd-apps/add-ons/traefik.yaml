@@ -1,16 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
-
 metadata:
   name: traefik
   namespace: argocd
-
 spec:
+  destination:
+    namespace: traefik
+    server: https://kubernetes.default.svc
   project: default
   sources:
-    - repoURL: https://traefik.github.io/charts
-      chart: traefik
-      targetRevision: v41.0.0
+    - chart: traefik
       helm:
         values: |
           nodeSelector:
@@ -26,12 +25,11 @@ spec:
             enabled: false
           ingressClass:
             enabled: false
-    - repoURL: https://github.com/hridaya2004/gitops.git
+      repoURL: https://traefik.github.io/charts
+      targetRevision: v41.0.0
+    - path: infra/traefik-gateway
+      repoURL: https://github.com/hridaya2004/gitops.git
       targetRevision: main
-      path: infra/traefik-gateway
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: traefik
   syncPolicy:
     automated:
       prune: true
