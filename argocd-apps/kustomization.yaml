@@ -8,6 +8,9 @@ resources:
   - add-ons/sealed-secrets.yaml
   - add-ons/traefik.yaml
 
+  # repo credentials (private repos)
+  - add-ons/portfolio-repo-creds.yaml
+
   # services
   - services/app-portfolio.yaml
   - services/app-scrapychat.yaml
