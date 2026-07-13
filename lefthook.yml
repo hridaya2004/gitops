@@ -1,0 +1,5 @@
+pre-commit:
+  commands:
+    kustomize:
+      glob: "**/*.yaml"
+      run: .lefthook/kustomize-check.sh {staged_files}
