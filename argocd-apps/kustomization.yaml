@@ -7,6 +7,7 @@ resources:
   - add-ons/sealed-secrets.yaml
   - add-ons/traefik.yaml
   - add-ons/cnpg.yaml
+  - add-ons/authentik.yaml
   # repo credentials (private repos)
   - add-ons/portfolio-repo-creds.yaml
   # services
