@@ -6,6 +6,7 @@ resources:
   - add-ons/kyverno.yaml
   - add-ons/sealed-secrets.yaml
   - add-ons/traefik.yaml
+  - add-ons/cnpg.yaml
   # repo credentials (private repos)
   - add-ons/portfolio-repo-creds.yaml
   # services
