@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vaultwarden
+  namespace: argocd
+spec:
+  destination:
+    namespace: vaultwarden
+    server: https://kubernetes.default.svc
+  project: default
+  sources:
+    - chart: vaultwarden
+      helm:
+        values: |
+          resourceType: Deployment
+
+          storage:
+            data:
+              name: vaultwarden-data
+              size: 10Gi
+              accessMode: ReadWriteOnce
+
+          adminToken:
+            existingSecret: vaultwarden-admin-token
+            existingSecretKey: ADMIN_TOKEN
+
+          httpRoute:
+            enabled: true
+            parentRefs:
+              - group: gateway.networking.k8s.io
+                kind: Gateway
+                name: traefik-gateway
+                namespace: traefik
+                sectionName: websecure
+            hostnames:
+              - vaultwarden.hridaya.dev
+            path: /
+      repoURL: https://guerzon.github.io/vaultwarden
+      targetRevision: 0.43.1
+    - path: apps/vaultwarden
+      repoURL: https://github.com/hridaya2004/gitops.git
+      targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

@@ -4,3 +4,4 @@ resources:
   - app-scrapychat.yaml
   - app-gitea.yaml
   - app-change-detection.yaml
+  - app-vaultwarden.yaml
