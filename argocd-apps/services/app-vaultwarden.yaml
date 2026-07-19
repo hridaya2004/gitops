@@ -7,6 +7,13 @@ spec:
   destination:
     namespace: vaultwarden
     server: https://kubernetes.default.svc
+  ignoreDifferences:
+    - group: gateway.networking.k8s.io
+      jsonPointers:
+        - /spec/rules/0/backendRefs/0/group
+        - /spec/rules/0/backendRefs/0/kind
+        - /spec/rules/0/backendRefs/0/weight
+      kind: HTTPRoute
   project: default
   sources:
     - chart: vaultwarden
