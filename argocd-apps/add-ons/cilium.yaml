@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cilium
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: cilium
+    repoURL: https://helm.cilium.io/
+    targetRevision: 1.19.6
+    helm:
+      values: |
+        operator:
+          replicas: 1
+        devices: "tailscale0"
+        mtu: 1280
+        kubeProxyReplacement: true
+        socketLB:
+          enabled: true
+          hostNamespaceOnly: true
+        # Prevent CIDR overlaps with Tailscale (100.64.0.0/10)
+        ipam:
+          operator:
+            clusterPoolIPv4PodCIDRList: ["10.245.0.0/16"]
+            clusterPoolIPv4MaskSize: 24
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

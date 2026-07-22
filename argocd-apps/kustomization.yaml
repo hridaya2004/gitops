@@ -7,6 +7,7 @@ resources:
   - add-ons/sealed-secrets.yaml
   - add-ons/traefik.yaml
   - add-ons/cnpg.yaml
+  - add-ons/cilium.yaml
   # services
   - services/app-scrapychat.yaml
   - services/app-gitea.yaml
