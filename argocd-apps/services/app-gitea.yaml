@@ -52,7 +52,7 @@ spec:
             admin:
               existingSecret: gitea-admin-secret
       repoURL: https://dl.gitea.com/charts
-      targetRevision: 12.6.0
+      targetRevision: 12.7.0
     - path: apps/gitea
       repoURL: https://github.com/hridaya2004/gitops.git
       targetRevision: main

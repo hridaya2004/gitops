@@ -20,7 +20,7 @@ spec:
             featureGates:
               ExperimentalGatewayAPISupport: true
       repoURL: https://charts.jetstack.io
-      targetRevision: v1.20.2
+      targetRevision: v1.21.0
     - path: infra/cert-manager
       repoURL: https://github.com/hridaya2004/gitops.git
       targetRevision: main

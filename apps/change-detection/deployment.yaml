@@ -16,7 +16,7 @@ spec:
         - envFrom:
             - configMapRef:
                 name: change-detection-cm
-          image: lscr.io/linuxserver/changedetection.io:0.55.7
+          image: lscr.io/linuxserver/changedetection.io:0.55.8
           name: change-detection
           ports:
             - containerPort: 5000

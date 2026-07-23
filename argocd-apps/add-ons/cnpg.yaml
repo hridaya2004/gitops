@@ -20,7 +20,7 @@ spec:
             storage:
               size: 2Gi
       repoURL: https://cloudnative-pg.github.io/charts
-      targetRevision: 0.7.0
+      targetRevision: 0.8.1
   syncPolicy:
     automated:
       prune: true

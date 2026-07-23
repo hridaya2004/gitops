@@ -19,7 +19,7 @@ spec:
           webhookLabels:
             app.kubernetes.io/managed-by: argocd
       repoURL: https://kyverno.github.io/kyverno
-      targetRevision: 3.8.1
+      targetRevision: 3.8.2
     - path: infra/kyverno
       repoURL: https://github.com/hridaya2004/gitops.git
       targetRevision: main
