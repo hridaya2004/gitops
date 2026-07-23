@@ -1,0 +1,58 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: miniflux
+  namespace: argocd
+spec:
+  destination:
+    namespace: miniflux
+    server: https://kubernetes.default.svc
+  project: default
+  sources:
+    - chart: miniflux
+      helm:
+        values: |
+          image:
+            tag: 2.2.5
+
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: miniflux-config
+                  key: DATABASE_URL
+            - name: CREATE_ADMIN
+              value: "1"
+            - name: ADMIN_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: miniflux-config
+                  key: ADMIN_USERNAME
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: miniflux-config
+                  key: ADMIN_PASSWORD
+            - name: RUN_MIGRATIONS
+              value: "1"
+            - name: TZ
+              value: Asia/Kathmandu
+
+          postgresql:
+            enabled: false
+
+          ingress:
+            main:
+              enabled: false
+      repoURL: https://charts.gabe565.com
+      targetRevision: 0.9.2
+    - path: apps/miniflux
+      repoURL: https://github.com/hridaya2004/gitops.git
+      targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
