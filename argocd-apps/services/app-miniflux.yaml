@@ -38,6 +38,8 @@ spec:
               value: "1"
             - name: TZ
               value: Asia/Kathmandu
+            - name: POLLING_FREQUENCY
+              value: 10
 
           postgresql:
             enabled: false
