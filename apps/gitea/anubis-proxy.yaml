@@ -1,0 +1,38 @@
+apiVersion: anubis.techaro.dev/v1alpha1
+kind: AnubisProxy
+metadata:
+  name: gitea
+  namespace: gitea
+spec:
+  anubis:
+    envExtra:
+      - name: DIFFICULTY
+        value: "4"
+      - name: SERVE_ROBOTS_TXT
+        value: "true"
+      - name: OG_PASSTHROUGH
+        value: "true"
+      - name: OG_EXPIRY_TIME
+        value: 24h
+      - name: COOKIE_DOMAIN
+        value: gitea.hridaya.dev
+    image:
+      repository: ghcr.io/techarohq/anubis
+      tag: v1.26.0
+    keys:
+      existingSecret: anubis-key
+  gateway:
+    enabled: true
+    hostnames:
+      - gitea.hridaya.dev
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: traefik-gateway
+        namespace: traefik
+  ingress:
+    enabled: false
+  target:
+    service:
+      name: gitea-http
+      port: 3000
