@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lms
+  namespace: argocd
+spec:
+  destination:
+    namespace: lms
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: apps/lms
+    repoURL: https://github.com/hridaya2004/gitops.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

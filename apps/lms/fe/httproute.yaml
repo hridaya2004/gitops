@@ -1,0 +1,21 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: lms-fe
+  namespace: lms
+spec:
+  hostnames:
+    - lms.hridaya.dev
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: traefik-gateway
+      namespace: traefik
+  rules:
+    - backendRefs:
+        - name: lms-fe
+          port: 80
+      matches:
+        - path:
+            type: PathPrefix
+            value: /

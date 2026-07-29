@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lms-be
+  namespace: lms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lms-be
+  template:
+    metadata:
+      labels:
+        app: lms-be
+    spec:
+      containers:
+        - envFrom:
+            - configMapRef:
+                name: lms-be-config
+            - secretRef:
+                name: lms-be-secrets
+          image: ghcr.io/hridaya2004/lms-be:ea088f9a93715807233ebe0e8ef696f0587f103f
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/health
+              port: 8080
+            initialDelaySeconds: 0
+            periodSeconds: 15
+            timeoutSeconds: 5
+          name: lms-be
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+          startupProbe:
+            failureThreshold: 12
+            httpGet:
+              path: /api/health
+              port: 8080
+            periodSeconds: 5
+          volumeMounts:
+            - mountPath: /app/public
+              name: app-public
+      imagePullSecrets:
+        - name: ghcr-secret
+      initContainers:
+        - command:
+            - npm
+            - run
+            - cjs-migration:migrate
+          envFrom:
+            - configMapRef:
+                name: lms-be-config
+            - secretRef:
+                name: lms-be-secrets
+          image: ghcr.io/hridaya2004/lms-be-migrate:44adeb652fec102496309934022b436fa8cdf352
+          name: lms-be-migrate
+          securityContext:
+            allowPrivilegeEscalation: false
+      securityContext:
+        fsGroup: 1001
+        runAsNonRoot: true
+        runAsUser: 1001
+      volumes:
+        - name: app-public
+          persistentVolumeClaim:
+            claimName: log-pvc

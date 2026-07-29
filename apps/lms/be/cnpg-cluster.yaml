@@ -1,0 +1,23 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: lms-db
+  namespace: lms
+spec:
+  bootstrap:
+    initdb:
+      database: lms-be
+      owner: lms-be
+      secret:
+        name: lms-be-db-credentials
+  instances: 1
+  primaryUpdateStrategy: unsupervised
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+  storage:
+    size: 1Gi

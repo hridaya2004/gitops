@@ -1,0 +1,27 @@
+apiVersion: v1
+data:
+  APP_HOST: 0.0.0.0
+  APP_NAME: lms-be
+  APP_PORT: "8080"
+  APP_VERSION: 1.0.0
+  CORS_ORIGIN: https://lms.hridaya.dev
+  DB_CLIENT: postgres
+  DB_HOST: lms-db-rw
+  DB_NAME: lms-be
+  DB_PORT: "5432"
+  JWT_ACCESS_TOKEN_AGE_SEC: "500000000000"
+  LOG_DIR: /tmp/lms-logs
+  LOG_LEVEL: debug
+  MAIL_PORT: "8154"
+  NODE_ENV: production
+  PUBLIC_PATH: public
+  REDIS_HOST: lms-redis.lms.svc.cluster.local
+  REDIS_PORT: "6379"
+  ROOT_PATH: /app
+  TEMP_PATH: /tmp/lms-be
+  USER_PATH: users
+  VERIFICATION_BASE_URL: https://lms.hridaya.dev
+kind: ConfigMap
+metadata:
+  name: lms-be-config
+  namespace: lms

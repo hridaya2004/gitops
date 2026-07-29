@@ -9,6 +9,7 @@ resources:
   - add-ons/traefik.yaml
   - add-ons/cnpg.yaml
   # services
+  - services/app-lms.yaml
   - services/app-scrapychat.yaml
   - services/app-gitea.yaml
   - services/app-change-detection.yaml
