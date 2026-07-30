@@ -19,7 +19,7 @@ spec:
                 name: lms-be-config
             - secretRef:
                 name: lms-be-secrets
-          image: ghcr.io/hridaya2004/lms-be:ea088f9a93715807233ebe0e8ef696f0587f103f
+          image: ghcr.io/hridaya2004/lms-be:ce0829f936c3773eb806072a4867264993dae08a
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
@@ -72,7 +72,7 @@ spec:
                 name: lms-be-config
             - secretRef:
                 name: lms-be-secrets
-          image: ghcr.io/hridaya2004/lms-be-migrate:44adeb652fec102496309934022b436fa8cdf352
+          image: ghcr.io/hridaya2004/lms-be-migrate:ce0829f936c3773eb806072a4867264993dae08a
           name: lms-be-migrate
           securityContext:
             allowPrivilegeEscalation: false

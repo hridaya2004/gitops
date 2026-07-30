@@ -14,7 +14,7 @@ spec:
         app: lms-fe
     spec:
       containers:
-        - image: ghcr.io/hridaya2004/lms-fe:87b7fa26b5b4c87391fde80b066b2fd42f5f5631
+        - image: ghcr.io/hridaya2004/lms-fe:8e62c7498efdbf534c05478be9387cc8b67fa236
           name: lms-fe
           ports:
             - containerPort: 3000
