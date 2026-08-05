@@ -24,7 +24,7 @@ spec:
                 secretKeyRef:
                   key: REDIS_PASSWORD
                   name: lms-be-secrets
-          image: redis:7.0-alpine
+          image: redis:7.4-alpine
           livenessProbe:
             exec:
               command:

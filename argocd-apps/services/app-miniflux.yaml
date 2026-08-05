@@ -14,7 +14,7 @@ spec:
         values: |
           image:
             repository: ghcr.io/miniflux/miniflux
-            tag: 2.3.2-distroless
+            tag: 2.3.3-distroless
 
           env:
             - name: DATABASE_URL
