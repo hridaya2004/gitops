@@ -6,9 +6,13 @@ metadata:
 spec:
   anubis:
     config: |
-      rules:
-        - path: /api/v1/internal
-          action: block
+      bots:
+        - name: block-internal-api
+          path_regex: ^/api/internal
+          action: DENY
+        - name: block-public-api
+          path_regex: ^/api/v1
+          action: DENY
     envExtra:
       - name: DIFFICULTY
         value: "4"
