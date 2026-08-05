@@ -5,6 +5,10 @@ metadata:
   namespace: gitea
 spec:
   anubis:
+    config: |
+      rules:
+        - path: /api/v1/internal
+          action: block
     envExtra:
       - name: DIFFICULTY
         value: "4"
@@ -16,11 +20,29 @@ spec:
         value: 24h
       - name: COOKIE_DOMAIN
         value: gitea.hridaya.dev
+      - name: REDIRECT_DOMAINS
+        value: gitea.hridaya.dev
+      - name: COOKIE_PARTITIONED
+        value: "true"
+      - name: COOKIE_HTTP_ONLY
+        value: "true"
+      - name: COOKIE_SAME_SITE
+        value: Lax
+      - name: DIFFICULTY_IN_JWT
+        value: "true"
+      - name: SLOG_LEVEL
+        value: INFO
     image:
       repository: ghcr.io/techarohq/anubis
-      tag: v1.26.0
+      tag: v1.26.2
     keys:
       existingSecret: anubis-key
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 50m
+        memory: 64Mi
   gateway:
     enabled: true
     hostnames:
@@ -32,6 +54,8 @@ spec:
         namespace: traefik
   ingress:
     enabled: false
+  networkPolicy:
+    enabled: true
   target:
     service:
       name: gitea-http
