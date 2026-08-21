@@ -64,7 +64,7 @@ spec:
                     port: 80
                     weight: 1
       repoURL: https://guerzon.github.io/vaultwarden
-      targetRevision: 0.44.0
+      targetRevision: 0.46.0
     - path: apps/vaultwarden
       repoURL: https://github.com/hridaya2004/gitops.git
       targetRevision: main

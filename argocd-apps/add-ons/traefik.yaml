@@ -26,7 +26,7 @@ spec:
           ingressClass:
             enabled: false
       repoURL: https://traefik.github.io/charts
-      targetRevision: v41.1.1
+      targetRevision: v41.2.0
     - path: infra/traefik-gateway
       repoURL: https://github.com/hridaya2004/gitops.git
       targetRevision: main

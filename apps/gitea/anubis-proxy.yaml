@@ -38,7 +38,7 @@ spec:
         value: INFO
     image:
       repository: ghcr.io/techarohq/anubis
-      tag: v1.26.2
+      tag: v1.27.0
     keys:
       existingSecret: anubis-key
     resources:
