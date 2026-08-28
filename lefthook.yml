@@ -1,5 +1,8 @@
 pre-commit:
   commands:
+    kyaml:
+      glob: "**/*.yaml"
+      run: .lefthook/kyaml-check.sh {staged_files}
     kustomize:
       glob: "**/*.yaml"
       run: .lefthook/kustomize-check.sh {staged_files}
