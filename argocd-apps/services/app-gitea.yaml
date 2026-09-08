@@ -12,6 +12,9 @@ spec:
     - chart: gitea
       helm:
         values: |
+          image:
+            tag: "1.27.3"
+
           ingress:
             enabled: false
 
