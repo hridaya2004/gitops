@@ -6,7 +6,9 @@ metadata:
 spec:
   dnsNames:
     - hridaya.dev
-    - '*.hridaya.dev'
+    - "*.hridaya.dev"
+    - pesacup.me
+    - "*.pesacup.me"
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt

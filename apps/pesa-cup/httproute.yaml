@@ -5,7 +5,7 @@ metadata:
   namespace: pesa-prod
 spec:
   hostnames:
-    - pesa.krishombasukala.com.np
+    - pesacup.me
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
@@ -27,7 +27,7 @@ metadata:
   namespace: pesa-prod
 spec:
   hostnames:
-    - pesa.krishombasukala.com.np
+    - pesacup.me
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
