@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pesa-cup
+  namespace: argocd
+spec:
+  destination:
+    namespace: pesa-prod
+    server: https://kubernetes.default.svc
+  project: default
+  sources:
+    - path: k8s/
+      repoURL: https://github.com/Krish-Om/pesa_cup.git
+      targetRevision: main
+    - path: apps/pesa-cup
+      repoURL: https://github.com/hridaya2004/gitops.git
+      targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,9 +1,11 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
-
+metadata:
+  name: pesa-frontend
+  namespace: pesa-prod
 spec:
   hostnames:
-    - pesa.hridaya.dev
+    - pesa.krishombasukala.com.np
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
@@ -17,3 +19,28 @@ spec:
         - path:
             type: PathPrefix
             value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: pesa-backend
+  namespace: pesa-prod
+spec:
+  hostnames:
+    - pesa.krishombasukala.com.np
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: traefik-gateway
+      namespace: traefik
+  rules:
+    - backendRefs:
+        - group: ""
+          kind: Service
+          name: pesa-backend
+          port: 80
+          weight: 1
+      matches:
+        - path:
+            type: PathPrefix
+            value: /api
