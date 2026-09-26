@@ -15,4 +15,3 @@ resources:
   - services/app-change-detection.yaml
   - services/app-vaultwarden.yaml
   - services/app-miniflux.yaml
-  - services/app-pesa-cup.yaml

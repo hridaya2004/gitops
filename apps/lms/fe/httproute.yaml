@@ -18,4 +18,4 @@ spec:
       matches:
         - path:
             type: PathPrefix
-            value: /api/v1
+            value: /
