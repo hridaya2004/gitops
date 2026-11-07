@@ -14,4 +14,3 @@ resources:
   - services/app-gitea.yaml
   - services/app-change-detection.yaml
   - services/app-vaultwarden.yaml
-  - services/app-miniflux.yaml
