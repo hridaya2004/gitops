@@ -11,7 +11,7 @@ spec:
   sources:
     - chart: cloudnative-pg
       repoURL: https://cloudnative-pg.github.io/charts
-      targetRevision: 0.29.0
+      targetRevision: 0.29.1
     - chart: cluster
       helm:
         values: |
@@ -20,7 +20,7 @@ spec:
             storage:
               size: 2Gi
       repoURL: https://cloudnative-pg.github.io/charts
-      targetRevision: 0.8.1
+      targetRevision: 0.9.0
   syncPolicy:
     automated:
       prune: true

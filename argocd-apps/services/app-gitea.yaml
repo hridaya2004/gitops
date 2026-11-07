@@ -13,17 +13,29 @@ spec:
       helm:
         values: |
           image:
-            tag: "1.27.3"
+            tag: "28.3.0"
 
           ingress:
             enabled: false
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              memory: 1Gi
 
           valkey-cluster:
             enabled: false
           valkey:
             enabled: true
+            networkPolicy:
+              enabled: false
           postgresql:
             enabled: true
+            primary:
+              networkPolicy:
+                enabled: false
           postgresql-ha:
             enabled: false
 

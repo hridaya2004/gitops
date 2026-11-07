@@ -1,6 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - ../baseline
+  - allow-ssh.yaml
   - anubis-proxy.yaml
   - anubis-key-sealedsecret.yaml
   - gitea-admin-secret.yaml

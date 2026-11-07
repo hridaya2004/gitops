@@ -18,8 +18,16 @@ spec:
             preserve: false
           webhookLabels:
             app.kubernetes.io/managed-by: argocd
+          backgroundController:
+            resources:
+              limits:
+                memory: 256Mi
+          reportsController:
+            resources:
+              limits:
+                memory: 256Mi
       repoURL: https://kyverno.github.io/kyverno
-      targetRevision: 3.9.0
+      targetRevision: 3.9.2
     - path: infra/kyverno
       repoURL: https://github.com/hridaya2004/gitops.git
       targetRevision: main

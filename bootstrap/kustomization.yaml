@@ -5,7 +5,16 @@ resources:
   - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
   - argocd-root-app
   - argocd-notifications-secret.yaml
+  - ../apps/baseline/limits
 patches:
+  - target:
+      kind: StatefulSet
+      name: argocd-application-controller
+    path: argocd-application-controller-resources-patch.yaml
+  - target:
+      kind: Deployment
+      name: argocd-repo-server
+    path: argocd-repo-server-resources-patch.yaml
   - target:
       kind: Service
       name: argocd-server
