@@ -5,6 +5,7 @@ resources:
   - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
   - argocd-root-app
   - argocd-notifications-secret.yaml
+  - argocd-authentik-oidc-sealedsecret.yaml
   - ../apps/baseline/limits
 patches:
   - target:

@@ -1,0 +1,77 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: authentik
+  namespace: argocd
+spec:
+  destination:
+    namespace: authentik
+    server: https://kubernetes.default.svc
+  project: default
+  sources:
+    - chart: authentik
+      helm:
+        releaseName: authentik
+        values: |
+          authentik:
+            existingSecret:
+              secretName: authentik
+
+          global:
+            env:
+              - name: AUTHENTIK_POSTGRESQL__HOST
+                value: authentik-db-rw
+              - name: AUTHENTIK_POSTGRESQL__NAME
+                value: authentik
+              - name: AUTHENTIK_POSTGRESQL__USER
+                valueFrom:
+                  secretKeyRef:
+                    name: authentik-db-app
+                    key: username
+              - name: AUTHENTIK_POSTGRESQL__PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: authentik-db-app
+                    key: password
+
+          blueprints:
+            configMaps:
+              - authentik-blueprints
+
+          server:
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512Mi
+              limits:
+                memory: 1Gi
+            route:
+              main:
+                enabled: true
+                hostnames:
+                  - auth.hridaya.dev
+                parentRefs:
+                  - group: gateway.networking.k8s.io
+                    kind: Gateway
+                    name: traefik-gateway
+                    namespace: traefik
+
+          worker:
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512Mi
+              limits:
+                memory: 1Gi
+      repoURL: https://charts.goauthentik.io
+      targetRevision: 2026.8.5
+    - path: infra/authentik
+      repoURL: https://github.com/hridaya2004/gitops.git
+      targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

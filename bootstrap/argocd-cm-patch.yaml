@@ -2,6 +2,13 @@ apiVersion: v1
 data:
   accounts.hridaya: apiKey, login
   admin.enabled: "false"
+  url: https://100.94.105.116:30443
+  oidc.config: |
+    name: Authentik
+    issuer: https://auth.hridaya.dev/application/o/argocd/
+    clientID: argocd
+    clientSecret: $argocd-authentik-oidc:clientSecret
+    requestedScopes: ["openid", "profile", "email"]
 kind: ConfigMap
 metadata:
   labels:

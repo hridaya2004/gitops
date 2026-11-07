@@ -8,6 +8,7 @@ resources:
   - add-ons/sealed-secrets.yaml
   - add-ons/traefik.yaml
   - add-ons/cnpg.yaml
+  - add-ons/authentik.yaml
   # services
   - services/app-lms.yaml
   - services/app-scrapychat.yaml
