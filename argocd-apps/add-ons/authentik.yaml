@@ -39,12 +39,45 @@ spec:
               - authentik-blueprints
 
           server:
+            # Keep the server on the same node as authentik-db (remoteserver
+            # reaches the cluster only via a ~190ms Tailscale DERP relay).
+            nodeSelector:
+              kubernetes.io/hostname: archlinux
             resources:
               requests:
                 cpu: 100m
                 memory: 512Mi
               limits:
                 memory: 1Gi
+            # Generous timeouts: this cluster spans two nodes over Tailscale,
+            # and DB/DNS round-trips can make health checks slow.
+            livenessProbe:
+              failureThreshold: 3
+              initialDelaySeconds: 5
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 10
+              httpGet:
+                path: /-/health/live/
+                port: http
+            readinessProbe:
+              failureThreshold: 3
+              initialDelaySeconds: 5
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 10
+              httpGet:
+                path: /-/health/ready/
+                port: http
+            startupProbe:
+              failureThreshold: 60
+              initialDelaySeconds: 5
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 10
+              httpGet:
+                path: /-/health/live/
+                port: http
             route:
               main:
                 enabled: true
@@ -57,12 +90,45 @@ spec:
                     namespace: traefik
 
           worker:
+            # Keep the worker on the same node as authentik-db as well.
+            nodeSelector:
+              kubernetes.io/hostname: archlinux
             resources:
               requests:
                 cpu: 100m
                 memory: 512Mi
               limits:
                 memory: 1Gi
+            livenessProbe:
+              failureThreshold: 3
+              initialDelaySeconds: 5
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 10
+              exec:
+                command:
+                  - ak
+                  - healthcheck
+            readinessProbe:
+              failureThreshold: 3
+              initialDelaySeconds: 5
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 10
+              exec:
+                command:
+                  - ak
+                  - healthcheck
+            startupProbe:
+              failureThreshold: 60
+              initialDelaySeconds: 30
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 10
+              exec:
+                command:
+                  - ak
+                  - healthcheck
       repoURL: https://charts.goauthentik.io
       targetRevision: 2026.8.5
     - path: infra/authentik
